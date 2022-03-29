@@ -4,31 +4,31 @@
 1. Download ubuntu cloud image, from https://cloud-images.ubuntu.com/
 2. copy the image file and resize the disk image, for example
     
-    cp ~/image/focal-server-cloudimg-amd64.img ubuntu1.img
-    qemu-img resize ubuntu1.img 40G
+        cp ~/image/focal-server-cloudimg-amd64.img ubuntu1.img
+        qemu-img resize ubuntu1.img 40G
     
 3. start VM using the following script
 
-    #!/bin/bash
-    VM=ubuntu1
-    DISK=${VM}.img
-    CDROM=seed.img
-    virt-install --name ${VM} \
-      --disk ./${DISK},device=disk,bus=virtio \
-      --disk ./${CDROM},device=cdrom \
-      --ram 4096 --vcpu 1  \
-      --os-type linux --os-variant generic \
-      --network bridge=lan1,model=virtio \
-      --console pty,target_type=serial \
-      --noautoconsole \
-      --hvm --accelerate  \
-      --graphics vnc,port=5901,listen=0.0.0.0  \
-      --virt-type=kvm  \
-      --boot hd
+        #!/bin/bash
+        VM=ubuntu1
+        DISK=${VM}.img
+        CDROM=seed.img
+        virt-install --name ${VM} \
+          --disk ./${DISK},device=disk,bus=virtio \
+          --disk ./${CDROM},device=cdrom \
+          --ram 4096 --vcpu 1  \
+          --os-type linux --os-variant generic \
+          --network bridge=lan1,model=virtio \
+          --console pty,target_type=serial \
+          --noautoconsole \
+          --hvm --accelerate  \
+          --graphics vnc,port=5901,listen=0.0.0.0  \
+          --virt-type=kvm  \
+          --boot hd
 
 4. access the console of the VM
   
-    virsh console ubuntu1
+        virsh console ubuntu1
 
 5. Do the following to update the system and install xfce4 desktop
 
